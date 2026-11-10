@@ -353,18 +353,20 @@ const jsonLd = {
     <!-- Books -->
     <section id="books" class="scroll-mt-24 bg-wash py-20 sm:py-28">
       <div class="wrap-wide grid items-center gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
-        <div class="relative order-2 flex justify-center lg:order-1 lg:justify-start">
+        <div
+          class="order-2 flex items-end justify-center lg:order-1 lg:justify-start"
+        >
           <Phone
             src={reader}
             alt="Reading an EPUB in Onigiri"
-            class="w-[240px] -rotate-3 sm:w-[300px]"
-            sizes="(max-width: 640px) 60vw, 300px"
+            class="w-[220px] -rotate-3 sm:w-[290px]"
+            sizes="(max-width: 640px) 56vw, 290px"
           />
           <Phone
             src={audiobook}
             alt="An audiobook playing in Onigiri"
-            class="absolute -bottom-8 right-2 w-[105px] rotate-6 sm:right-4 sm:w-[140px]"
-            sizes="(max-width: 640px) 28vw, 140px"
+            class="relative z-10 -ml-14 mb-2 w-[140px] rotate-6 sm:-ml-20 sm:w-[190px]"
+            sizes="(max-width: 640px) 36vw, 190px"
           />
         </div>
 
