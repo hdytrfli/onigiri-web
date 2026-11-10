@@ -1,0 +1,28 @@
+---
+import { ArrowDownToLine } from "@lucide/astro";
+---
+
+<header class="sticky top-0 z-50 px-4 pt-4">
+  <div
+    class="mx-auto flex h-14 w-full max-w-[60rem] items-center justify-between gap-3 rounded-full bg-paper py-2 pl-4 pr-2 shadow-[0_18px_40px_-32px_rgba(0,0,0,0.5)]"
+  >
+    <a href="/" class="flex items-center gap-2" aria-label="Onigiri home">
+      <img src="/logo.svg" alt="" width="28" height="23" class="h-5 w-auto" />
+      <span class="font-display text-[19px] leading-none">Onigiri</span>
+    </a>
+
+    <nav class="hidden items-center gap-5 text-[13px] text-muted lg:flex" aria-label="Primary">
+      <a href="#onboarding" class="transition-colors hover:text-ink">Onboarding</a>
+      <a href="#movies" class="transition-colors hover:text-ink">Movies</a>
+      <a href="#shows" class="transition-colors hover:text-ink">Shows</a>
+      <a href="#books" class="transition-colors hover:text-ink">Books</a>
+      <a href="#songs" class="transition-colors hover:text-ink">Songs</a>
+      <a href="#settings" class="transition-colors hover:text-ink">Settings</a>
+    </nav>
+
+    <a href="#download" class="btn btn-solid btn-sm">
+      <ArrowDownToLine size={14} aria-hidden="true" />
+      Download
+    </a>
+  </div>
+</header>

@@ -7,5 +7,9 @@ export default defineConfig({
   // Set `site` to the production URL before deploying (used for canonical/OG tags).
   vite: {
     plugins: [tailwindcss()],
+    server: {
+      // Allow quick tunnels (trycloudflare.com) to reach the dev server.
+      allowedHosts: [".trycloudflare.com"],
+    },
   },
 });

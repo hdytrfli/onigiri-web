@@ -1,0 +1,185 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #ffffff;
+  --color-ink: #1b1b1b;
+  --color-muted: #5c5c5c;
+  --color-faint: #8a8a86;
+  --color-line: #e6e6e2;
+  --color-wash: #f7f7f4;
+
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "DM Serif Text", ui-serif, Georgia, "Times New Roman", serif;
+
+  --text-hero: clamp(2.85rem, 7.4vw, 4.9rem);
+  --text-section: clamp(1.95rem, 4.4vw, 2.95rem);
+  --text-lead: clamp(1.02rem, 1.6vw, 1.15rem);
+
+  --radius-card: 1.5rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+    color-scheme: light;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-paper font-sans text-ink antialiased;
+    text-rendering: optimizeLegibility;
+    font-optical-sizing: auto;
+  }
+
+  ::selection {
+    background-color: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer components {
+  .wrap {
+    @apply mx-auto w-full max-w-[48rem] px-5 sm:px-6;
+  }
+
+  .wrap-wide {
+    @apply mx-auto w-full max-w-[64rem] px-5 sm:px-6;
+  }
+
+  .eyebrow {
+    @apply text-[10px] font-medium uppercase tracking-[0.22em] text-faint;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-colors duration-200;
+  }
+
+  .btn-sm {
+    @apply px-4 py-2 text-[13px];
+  }
+
+  .btn-solid {
+    @apply bg-ink text-paper hover:bg-ink/90;
+  }
+
+  .btn-ghost {
+    @apply bg-wash text-ink hover:bg-line/60;
+  }
+
+  .rule {
+    @apply h-px w-full bg-line;
+  }
+
+  .card {
+    @apply rounded-[var(--radius-card)] bg-wash;
+  }
+
+  .prose-muted {
+    @apply text-[15.5px] leading-relaxed text-muted;
+  }
+}
+
+/* Phone mockup: radius follows the rendered size (and the short edge for
+   landscape screens) instead of a fixed pixel value. */
+.phone-shell {
+  container-type: inline-size;
+}
+
+.phone-frame {
+  --phone-radius: clamp(8px, calc(7.5cqw * var(--phone-min, 1)), 28px);
+  --phone-bezel: clamp(4px, 1.8cqw, 7px);
+  border-radius: var(--phone-radius);
+  padding: var(--phone-bezel);
+}
+
+.phone-screen {
+  border-radius: calc(var(--phone-radius) - var(--phone-bezel));
+}
+
+.phone-screen {
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.gallery-viewport {
+  touch-action: pan-y pinch-zoom;
+}
+
+/* Full-bleed spacing for the Embla track. Pseudo-elements are not counted
+   as slides by Embla, so they only pad the start and end. */
+.gallery-track::before,
+.gallery-track::after {
+  content: "";
+  flex: 0 0 max(1.25rem, calc((100vw - 64rem) / 2));
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Soft entrance for above-the-fold content. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rise {
+  animation: rise 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.rise-late {
+  animation: rise 700ms cubic-bezier(0.22, 1, 0.36, 1) 180ms both;
+}
+
+@keyframes mascot-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1.5deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(1.5deg);
+  }
+}
+
+.mascot-float {
+  animation: mascot-float 7s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .rise,
+  .rise-late,
+  .mascot-float {
+    animation: none;
+  }
+}

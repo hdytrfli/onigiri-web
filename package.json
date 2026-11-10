@@ -15,6 +15,7 @@
     "@lucide/astro": "^1.70.0",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.4.8",
+    "embla-carousel": "^8.6.0",
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {

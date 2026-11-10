@@ -1,0 +1,62 @@
+---
+import "@fontsource-variable/geist";
+import "@fontsource/dm-serif-text/400.css";
+import "@fontsource/dm-serif-text/400-italic.css";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title = "Onigiri: a native Jellyfin client for Android",
+  description = "Onigiri is a native Android client for Jellyfin with a built-in EPUB reader, a full music player, and mpv video playback.",
+  image = "/icon.png",
+} = Astro.props;
+
+const site = Astro.site;
+const canonical = site ? new URL(Astro.url.pathname, site).href : undefined;
+const ogImage = site ? new URL(image, site).href : image;
+const ogType = "website";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="color-scheme" content="light" />
+
+    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="icon" href="/icon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/icon.png" />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content="Onigiri" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content="The Onigiri mascot" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body>
+    <a
+      href="#main"
+      class="sr-only rounded-full bg-ink px-4 py-2 text-sm text-paper focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100]"
+    >
+      Skip to content
+    </a>
+    <slot />
+  </body>
+</html>
