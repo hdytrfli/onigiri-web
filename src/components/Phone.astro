@@ -7,6 +7,7 @@ interface Props {
   class?: string;
   sizes?: string;
   loading?: "eager" | "lazy";
+  shadow?: boolean;
 }
 
 const {
@@ -15,6 +16,7 @@ const {
   class: className,
   sizes = "(max-width: 640px) 46vw, 280px",
   loading = "lazy",
+  shadow = true,
 } = Astro.props;
 
 // Landscape screens get a radius based on their short edge, not their width.
@@ -23,7 +25,10 @@ const shortEdge = Math.min(1, src.height / src.width).toFixed(3);
 
 <div class:list={["phone-shell relative", className]} style={`--phone-min: ${shortEdge}`}>
   <div
-    class="phone-frame relative bg-ink shadow-[0_40px_90px_-70px_rgba(0,0,0,0.6)]"
+    class:list={[
+      "phone-frame relative bg-ink",
+      shadow && "shadow-[0_40px_90px_-70px_rgba(0,0,0,0.6)]",
+    ]}
   >
     <Image
       src={src}
