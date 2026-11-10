@@ -83,10 +83,6 @@
     @apply bg-wash text-ink hover:bg-line/60;
   }
 
-  .rule {
-    @apply h-px w-full bg-line;
-  }
-
   .card {
     @apply rounded-[var(--radius-card)] bg-wash;
   }
@@ -188,14 +184,6 @@
   height: 12px;
   background: var(--color-paper);
   transform: rotate(45deg);
-}
-
-.no-scrollbar {
-  scrollbar-width: none;
-}
-
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
 }
 
 /* Soft entrance for above-the-fold content. */

@@ -63,34 +63,26 @@ const screens = [
       tabindex="0"
     >
       <div id="gallery-track" class="gallery-track flex items-start gap-5 sm:gap-8">
-        {screens.map((screen, index) => {
-          const landscape = screen.src.width > screen.src.height;
-          return (
-            <figure
-              class:list={[
-                landscape ? "w-[340px] sm:w-[440px]" : "w-[220px] sm:w-[264px]",
-                "shrink-0",
-                index % 2 === 1 && "sm:mt-10",
-              ]}
-            >
-              <Phone
-                src={screen.src}
-                alt={screen.alt}
-                shadow={false}
-                sizes={
-                  landscape
-                    ? "(max-width: 640px) 340px, 440px"
-                    : "(max-width: 640px) 220px, 264px"
-                }
-              />
-              <figcaption class="mt-4 flex items-baseline gap-2.5 text-[11px] text-faint">
-                <span class="tabular-nums">{String(index + 1).padStart(2, "0")}</span>
-                <span class="h-px w-4 bg-line" aria-hidden="true"></span>
-                <span>{screen.label}</span>
-              </figcaption>
-            </figure>
-          );
-        })}
+        {screens.map((screen, index) => (
+          <figure
+            class:list={[
+              "w-[220px] shrink-0 sm:w-[264px]",
+              index % 2 === 1 && "sm:mt-10",
+            ]}
+          >
+            <Phone
+              src={screen.src}
+              alt={screen.alt}
+              shadow={false}
+              sizes="(max-width: 640px) 220px, 264px"
+            />
+            <figcaption class="mt-4 flex items-baseline gap-2.5 text-[11px] text-faint">
+              <span class="tabular-nums">{String(index + 1).padStart(2, "0")}</span>
+              <span class="h-px w-4 bg-line" aria-hidden="true"></span>
+              <span>{screen.label}</span>
+            </figcaption>
+          </figure>
+        ))}
       </div>
     </div>
   </div>
