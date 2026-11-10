@@ -24,6 +24,8 @@ src/
   components/        Nav, Footer, Phone, Gallery, Faq, Speech, SectionHeading
   layouts/Base.astro metadata, fonts, favicon
   pages/index.astro  the landing page and copy
+  pages/og.png.ts    build-time Open Graph image endpoint
+  lib/og.ts          satori and sharp card renderer
   styles/global.css  design tokens and component classes
 public/
   icon.png           app icon / favicon
