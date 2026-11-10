@@ -3,7 +3,7 @@
 Landing page for Onigiri, a native Jellyfin client for Android.
 
 Built with Astro, Tailwind CSS, and Embla Carousel. The type is Geist for UI and
-DM Serif Text for headings. The palette is intentionally monochrome: white paper,
+Caprasimo for headings. The palette is intentionally monochrome: white paper,
 `#1b1b1b` ink, and tinted surfaces instead of borders.
 
 ## Commands
@@ -21,7 +21,7 @@ pnpm check     # Astro + TypeScript diagnostics
 ```
 src/
   assets/screens/    curated app screenshots (raw/ is ignored)
-  components/        Nav, Footer, Phone, Gallery, SectionHeading, FeatureList
+  components/        Nav, Footer, Phone, Gallery, Faq, Speech, SectionHeading
   layouts/Base.astro metadata, fonts, favicon
   pages/index.astro  the landing page and copy
   styles/global.css  design tokens and component classes
