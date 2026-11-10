@@ -1,0 +1,99 @@
+---
+import SectionHeading from "./SectionHeading.astro";
+
+const faqs = [
+  {
+    q: "Is Onigiri free?",
+    a: "Yes. The client is GPL-3.0, and the full source is on GitHub. There are no ads, no accounts, and no telemetry. The useful way to support it is a bug report with steps to reproduce.",
+  },
+  {
+    q: "Which Jellyfin versions work?",
+    a: "Any recent Jellyfin release. The app supports password sign-in and Quick Connect, and stores the session locally. If you run an older server, open an issue with the version so compatibility can be checked.",
+  },
+  {
+    q: "Where can I download it?",
+    a: "The beta is published as an APK on GitHub Releases. Google Play and F-Droid are not available yet; those listings will be added when the build and signing process is ready.",
+  },
+  {
+    q: "Does it send anything to a server?",
+    a: "Requests go to the Jellyfin server you configure. There is no account system, analytics, or crash reporting service in the app.",
+  },
+  {
+    q: "Is it affiliated with Jellyfin?",
+    a: "No. Onigiri is an independent client. Jellyfin is a separate project with its own maintainers, and the app only uses its public API.",
+  },
+  {
+    q: "Why is it in beta?",
+    a: "Video and music playback are in regular use; the reader, profiles, and settings are still being tested. Expect changes between builds, and keep a backup of your Jellyfin database before trying a new version.",
+  },
+  {
+    q: "Where do I report a bug?",
+    a: "Open an issue on GitHub with the app version, the Jellyfin server version, and the steps that led to the problem. A log or screenshot helps when the issue involves playback.",
+  },
+];
+---
+
+<section id="faq" class="scroll-mt-24 py-16 sm:py-20">
+  <div class="wrap-wide">
+    <div class="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
+      <div>
+        <SectionHeading
+          eyebrow="Questions"
+          title="The short answers."
+          body="If something is missing, the issue tracker is the place to ask."
+        />
+      </div>
+
+      <div class="space-y-2">
+        {faqs.map((item, index) => (
+          <div class="rounded-2xl bg-wash/60">
+            <button
+              type="button"
+              class="flex w-full items-center justify-between gap-4 px-5 py-4 text-left text-[15px] font-medium"
+              aria-expanded="false"
+              aria-controls={`faq-panel-${index}`}
+              data-faq-trigger
+            >
+              <span>{item.q}</span>
+              <span
+                class="faq-plus flex size-6 shrink-0 items-center justify-center rounded-full bg-paper text-faint"
+                aria-hidden="true"
+              >
+                <span class="text-base leading-none">+</span>
+              </span>
+            </button>
+
+            <div id={`faq-panel-${index}`} class="faq-panel">
+              <div class="overflow-hidden">
+                <p class="px-5 pb-5 text-sm leading-relaxed text-muted">{item.a}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const triggers = Array.from(
+    document.querySelectorAll<HTMLButtonElement>("[data-faq-trigger]"),
+  );
+
+  function setOpen(trigger: HTMLButtonElement, open: boolean) {
+    trigger.setAttribute("aria-expanded", String(open));
+    const id = trigger.getAttribute("aria-controls");
+    if (!id) return;
+    document.getElementById(id)?.setAttribute("data-open", String(open));
+  }
+
+  triggers.forEach((trigger) => {
+    trigger.addEventListener("click", () => {
+      const open = trigger.getAttribute("aria-expanded") !== "true";
+      triggers.forEach((other) => {
+        if (other !== trigger) setOpen(other, false);
+      });
+      setOpen(trigger, open);
+    });
+  });
+</script>

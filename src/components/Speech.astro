@@ -1,0 +1,23 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+  src: ImageMetadata;
+  text: string;
+  class?: string;
+}
+
+const { src, text, class: className } = Astro.props;
+---
+
+<div class:list={["flex flex-col items-start gap-3 sm:flex-row sm:items-end", className]}>
+  <Image
+    src={src}
+    alt=""
+    width={260}
+    format="webp"
+    class="w-36 shrink-0 sm:w-48"
+    aria-hidden="true"
+  />
+  <div class="bubble px-5 py-4 text-sm leading-relaxed text-muted">{text}</div>
+</div>
