@@ -1,0 +1,589 @@
+---
+import { Image } from "astro:assets";
+import {
+  ArrowDownToLine,
+  Captions,
+  Layers,
+  LayoutGrid,
+  Package,
+  Play,
+  Search,
+  ShieldCheck,
+  WifiOff,
+} from "@lucide/astro";
+
+import Base from "../layouts/Base.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import Phone from "../components/Phone.astro";
+import Gallery from "../components/Gallery.astro";
+import FeatureList from "../components/FeatureList.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import GitHubIcon from "../components/GitHubIcon.astro";
+
+import idle from "../../mascot/idle.png";
+import excited from "../../mascot/excited.png";
+import thinking from "../../mascot/thinking.png";
+import questioning from "../../mascot/questioning.png";
+
+import home from "../assets/screens/home.jpg";
+import movie from "../assets/screens/movie.jpg";
+import movieList from "../assets/screens/movie-list.jpg";
+import showList from "../assets/screens/show-list.jpg";
+import reader from "../assets/screens/reader.jpg";
+import audiobook from "../assets/screens/audiobook.jpg";
+import musicPlayer from "../assets/screens/music-player.jpg";
+import artists from "../assets/screens/artists.jpg";
+import player from "../assets/screens/player.jpg";
+import onboarding from "../assets/screens/onboarding.jpg";
+import onboardingSignin from "../assets/screens/onboarding-signin.jpg";
+import settings from "../assets/screens/settings.jpg";
+import subtitleSettings from "../assets/screens/subtitle-settings.jpg";
+
+const repoUrl = "https://github.com/hdytrfli/onigiri-client";
+const releaseUrl = `${repoUrl}/releases/latest`;
+const version = "1.0.0-beta.5";
+
+const strip = [
+  { label: "One app", value: "Video, books, music" },
+  { label: "Native", value: "Kotlin, no WebView" },
+  { label: "Offline", value: "Downloads built in" },
+  { label: "Open", value: "GPL-3.0, no tracking" },
+];
+
+const libraryFeatures = [
+  {
+    icon: WifiOff,
+    title: "Offline downloads",
+    body: "Movies, episodes, books, and audiobooks, ready without a network.",
+  },
+  {
+    icon: Search,
+    title: "Scoped search",
+    body: "Search a single library, then sort and filter without leaving it.",
+  },
+  {
+    icon: Captions,
+    title: "Subtitle styling",
+    body: "SRT and ASS tracks with size, offset, and per-item selection.",
+  },
+  {
+    icon: Layers,
+    title: "Collections and genres",
+    body: "Suggestions, favorites, and collections from your server.",
+  },
+  {
+    icon: LayoutGrid,
+    title: "Adaptive layout",
+    body: "Grids, artwork ratios, and density that follow the screen.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Admin aware",
+    body: "Admin controls appear only when the account can use them.",
+  },
+];
+
+const faqs = [
+  {
+    q: "Is Onigiri free?",
+    a: "Yes. It is open source under GPL-3.0, with no ads, no account, and no telemetry.",
+  },
+  {
+    q: "Does it work with my Jellyfin server?",
+    a: "Any recent Jellyfin server works. Sign in with a password or Quick Connect, and add a profile PIN if you want one.",
+  },
+  {
+    q: "Where do I download it?",
+    a: "The beta is on GitHub Releases today. Google Play and F-Droid are coming soon.",
+  },
+  {
+    q: "Is it affiliated with Jellyfin?",
+    a: "No. Onigiri is an independent client, built in the open. Jellyfin remains its own project.",
+  },
+  {
+    q: "Why is it still in beta?",
+    a: "Video and music are solid; the reader and profile system are still being polished. Back up your server and expect the occasional rough edge.",
+  },
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  name: "Onigiri",
+  description:
+    "A native Android client for Jellyfin with a built-in EPUB reader, a full music player, and mpv video playback.",
+  applicationCategory: "MultimediaApplication",
+  operatingSystem: "Android 9+",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  license: "https://www.gnu.org/licenses/gpl-3.0.html",
+  url: repoUrl,
+  downloadUrl: releaseUrl,
+};
+---
+
+<Base>
+  <Nav />
+
+  <main id="main">
+    <!-- Hero -->
+    <section class="relative overflow-hidden pt-14 sm:pt-20">
+      <div class="wrap text-center">
+        <p class="eyebrow rise">A native Jellyfin client for Android</p>
+
+        <h1 class="rise mt-5 font-display text-hero leading-[0.98] tracking-[-0.02em]">
+          A quiet home<br />for your <span class="italic">library</span>.
+        </h1>
+
+        <p class="rise-late mx-auto mt-6 max-w-[32rem] text-lead leading-relaxed text-muted">
+          Movies, shows, books, and music from your Jellyfin server, all in one native app that
+          treats each of them with the same care.
+        </p>
+
+        <div class="rise-late mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <a
+            href={releaseUrl}
+            target="_blank"
+            rel="noreferrer"
+            class="btn btn-solid w-full sm:w-auto"
+          >
+            <ArrowDownToLine size={16} aria-hidden="true" />
+            Download for Android
+          </a>
+          <a
+            href={repoUrl}
+            target="_blank"
+            rel="noreferrer"
+            class="btn btn-ghost w-full sm:w-auto"
+          >
+            <GitHubIcon size={16} />
+            View source
+          </a>
+        </div>
+
+        <p class="rise-late mt-4 text-xs text-faint">
+          Free &amp; open source · v{version} · Android 9+
+        </p>
+      </div>
+
+      <div class="wrap-wide relative mt-12 sm:mt-16">
+        <div class="relative mx-auto flex max-w-[34rem] items-end justify-center">
+          <div
+            class="pointer-events-none absolute bottom-6 left-1/2 h-40 w-[70%] -translate-x-1/2 rounded-[100%] bg-wash blur-2xl"
+            aria-hidden="true"
+          >
+          </div>
+          <Image
+            src={idle}
+            alt=""
+            width={560}
+            format="webp"
+            class="mascot-float relative z-10 -mr-6 mb-8 w-32 sm:-mr-10 sm:w-56"
+            aria-hidden="true"
+          />
+          <Phone
+            src={home}
+            alt="The Onigiri home screen, showing suggestions and recently added movies"
+            class="relative z-20 w-[205px] sm:w-[268px]"
+            sizes="(max-width: 640px) 56vw, 268px"
+            loading="eager"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Strip -->
+    <section class="mt-16 sm:mt-24">
+      <div class="wrap">
+        <dl class="grid grid-cols-2 gap-x-6 gap-y-5 rounded-[1.75rem] bg-wash p-6 sm:grid-cols-4 sm:p-7">
+          {strip.map((item) => (
+            <div>
+              <dt class="text-[9.5px] font-medium uppercase tracking-[0.2em] text-faint">
+                {item.label}
+              </dt>
+              <dd class="mt-1.5 text-[13.5px] font-medium">{item.value}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </section>
+
+    <!-- Onboarding -->
+    <section id="onboarding" class="scroll-mt-24 py-20 sm:py-28">
+      <div class="wrap">
+        <div class="flex items-start justify-between gap-6">
+          <SectionHeading
+            index="01"
+            eyebrow="Onboarding"
+            title="From zero to your library."
+            body="Point Onigiri at your server, sign in with a password or Quick Connect, and choose a profile. Add a four-digit PIN if the phone is shared."
+          />
+          <Image
+            src={questioning}
+            alt=""
+            width={320}
+            format="webp"
+            class="mt-1 hidden w-28 shrink-0 rotate-3 sm:block sm:w-36"
+            aria-hidden="true"
+          />
+        </div>
+
+        <FeatureList
+          items={[
+            "Server and account setup",
+            "Password or Quick Connect",
+            "Profile picker with saved sessions",
+            "Optional four-digit profile PIN",
+          ]}
+        />
+      </div>
+
+      <div class="wrap-wide mt-10">
+        <div class="flex items-end justify-center gap-3 sm:gap-6">
+          <Phone
+            src={onboarding}
+            alt="Onigiri onboarding"
+            class="w-[38%] translate-y-6 sm:w-[220px]"
+            sizes="(max-width: 640px) 34vw, 220px"
+          />
+          <Phone
+            src={onboardingSignin}
+            alt="Signing in to a Jellyfin server"
+            class="w-[55%] sm:w-[310px]"
+            sizes="(max-width: 640px) 50vw, 310px"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Movies -->
+    <section id="movies" class="scroll-mt-24 bg-wash py-20 sm:py-28">
+      <div class="wrap">
+        <div class="flex items-start justify-between gap-6">
+          <SectionHeading
+            index="02"
+            eyebrow="Movies"
+            title="The shelf, not a folder."
+            body="Suggestions, genres, and the list you actually made. Detail pages that give the artwork room to breathe."
+          />
+          <Image
+            src={excited}
+            alt=""
+            width={320}
+            format="webp"
+            class="mt-1 hidden w-28 shrink-0 rotate-6 sm:block sm:w-36"
+            aria-hidden="true"
+          />
+        </div>
+
+        <FeatureList
+          items={[
+            "Suggestions, genres, and collections",
+            "Artwork, cast, and versions",
+            "Scoped search and sorting",
+            "Download for offline playback",
+          ]}
+        />
+      </div>
+
+      <div class="wrap-wide mt-10">
+        <div class="flex items-end justify-center gap-3 sm:gap-6">
+          <Phone
+            src={movieList}
+            alt="The movie list in Onigiri"
+            class="w-[38%] translate-y-6 sm:w-[220px]"
+            sizes="(max-width: 640px) 34vw, 220px"
+          />
+          <Phone
+            src={movie}
+            alt="A movie detail page"
+            class="w-[55%] sm:w-[310px]"
+            sizes="(max-width: 640px) 50vw, 310px"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Shows -->
+    <section id="shows" class="scroll-mt-24 py-20 sm:py-28">
+      <div class="wrap">
+        <SectionHeading
+          index="03"
+          eyebrow="Shows"
+          title="Next episode, already waiting."
+          body="Seasons and episodes stay in order, with next-up, cast, and playback that remembers where you stopped."
+        />
+
+        <FeatureList
+          items={[
+            "Season and episode detail",
+            "Next-up and progress",
+            "Cast and crew",
+            "Trickplay thumbnails and chapters",
+          ]}
+        />
+      </div>
+
+      <div class="wrap-wide mt-10">
+        <div
+          class="flex flex-col items-center gap-4 sm:flex-row sm:items-end sm:justify-center sm:gap-6"
+        >
+          <Phone
+            src={showList}
+            alt="The show list in Onigiri"
+            class="w-[55%] max-w-[240px] sm:w-[220px]"
+            sizes="(max-width: 640px) 55vw, 220px"
+          />
+          <Phone
+            src={player}
+            alt="Video playback in Onigiri"
+            class="w-full max-w-[420px] sm:w-[420px]"
+            sizes="(max-width: 640px) 90vw, 420px"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Books -->
+    <section id="books" class="scroll-mt-24 bg-wash py-20 sm:py-28">
+      <div class="wrap">
+        <div class="flex items-start justify-between gap-6">
+          <SectionHeading
+            index="04"
+            eyebrow="Books and audiobooks"
+            title="A reader and a player."
+            body="EPUBs open in a real reader with typography you can tune. Audiobooks get a player with speed, progress, and a queue."
+          />
+          <Image
+            src={thinking}
+            alt=""
+            width={320}
+            format="webp"
+            class="mt-1 hidden w-28 shrink-0 rotate-3 sm:block sm:w-36"
+            aria-hidden="true"
+          />
+        </div>
+
+        <FeatureList
+          items={[
+            "Reader themes, fonts, and hyphenation",
+            "Table of contents and reading position",
+            "Audiobook playback with speed control",
+            "Offline downloads for both",
+          ]}
+        />
+      </div>
+
+      <div class="wrap-wide mt-10">
+        <div class="flex items-end justify-center gap-3 sm:gap-6">
+          <Phone
+            src={audiobook}
+            alt="An audiobook playing in Onigiri"
+            class="w-[38%] translate-y-6 sm:w-[220px]"
+            sizes="(max-width: 640px) 34vw, 220px"
+          />
+          <Phone
+            src={reader}
+            alt="Reading an EPUB in Onigiri"
+            class="w-[55%] sm:w-[310px]"
+            sizes="(max-width: 640px) 50vw, 310px"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Songs -->
+    <section id="songs" class="scroll-mt-24 py-20 sm:py-28">
+      <div class="wrap">
+        <SectionHeading
+          index="05"
+          eyebrow="Songs"
+          title="A queue that behaves."
+          body="Artists, albums, songs, and a queue you can reorder. Shuffle, repeat, and artwork that moves."
+        />
+
+        <FeatureList
+          items={[
+            "Artists, albums, and songs",
+            "Reorderable queue with search",
+            "Shuffle, repeat, repeat-one",
+            "Background playback and mini-player",
+          ]}
+        />
+      </div>
+
+      <div class="wrap-wide mt-10">
+        <div class="flex items-end justify-center gap-3 sm:gap-6">
+          <Phone
+            src={artists}
+            alt="Artists page with the audio mini-player"
+            class="w-[38%] translate-y-6 sm:w-[220px]"
+            sizes="(max-width: 640px) 34vw, 220px"
+          />
+          <Phone
+            src={musicPlayer}
+            alt="The Onigiri music player with vinyl artwork"
+            class="w-[55%] sm:w-[310px]"
+            sizes="(max-width: 640px) 50vw, 310px"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Settings -->
+    <section id="settings" class="scroll-mt-24 bg-wash py-20 sm:py-28">
+      <div class="wrap">
+        <SectionHeading
+          index="06"
+          eyebrow="Settings"
+          title="Everything in reach."
+          body="Playback, subtitles, reader typography, downloads, and profiles. No hidden menus, no surprises."
+        />
+
+        <FeatureList
+          items={[
+            "Playback speed and seek behavior",
+            "Subtitle styling and offset",
+            "Reader themes and line width",
+            "Download storage and profiles",
+          ]}
+        />
+      </div>
+
+      <div class="wrap-wide mt-10">
+        <div class="flex items-end justify-center gap-3 sm:gap-6">
+          <Phone
+            src={subtitleSettings}
+            alt="Subtitle settings"
+            class="w-[38%] translate-y-6 sm:w-[220px]"
+            sizes="(max-width: 640px) 34vw, 220px"
+          />
+          <Phone
+            src={settings}
+            alt="The settings page in Onigiri"
+            class="w-[55%] sm:w-[310px]"
+            sizes="(max-width: 640px) 50vw, 310px"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Library extras -->
+    <section id="library" class="scroll-mt-24 py-20 sm:py-28">
+      <div class="wrap">
+        <SectionHeading
+          eyebrow="Also in the box"
+          title="The small things."
+          body="Details that make the app feel finished."
+        />
+
+        <div class="mt-9 grid gap-3 sm:grid-cols-2">
+          {libraryFeatures.map(({ icon: Icon, title, body }) => (
+            <div class="card p-5">
+              <Icon size={18} class="text-ink" aria-hidden="true" />
+              <h3 class="mt-4 text-[14.5px] font-medium">{title}</h3>
+              <p class="mt-1.5 text-[13.5px] leading-relaxed text-muted">{body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <Gallery />
+
+    <!-- Download -->
+    <section id="download" class="scroll-mt-24 bg-wash py-20 sm:py-28">
+      <div class="wrap text-center">
+        <Image
+          src={excited}
+          alt=""
+          width={640}
+          format="webp"
+          class="mascot-float mx-auto w-36 sm:w-44"
+          aria-hidden="true"
+        />
+
+        <h2 class="mt-6 font-display text-section leading-[1.06]">Take it with you.</h2>
+        <p class="mx-auto mt-4 max-w-[30rem] prose-muted">
+          The beta is available as an APK on GitHub Releases. Google Play and F-Droid are next.
+        </p>
+
+        <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <a
+            href={releaseUrl}
+            target="_blank"
+            rel="noreferrer"
+            class="btn btn-solid w-full sm:w-auto"
+          >
+            <ArrowDownToLine size={16} aria-hidden="true" />
+            Download APK
+          </a>
+          <a
+            href={repoUrl}
+            target="_blank"
+            rel="noreferrer"
+            class="btn btn-ghost w-full sm:w-auto"
+          >
+            <GitHubIcon size={16} />
+            Source code
+          </a>
+        </div>
+
+        <div class="mt-10 grid gap-3 text-left sm:grid-cols-3">
+          <a
+            href={releaseUrl}
+            target="_blank"
+            rel="noreferrer"
+            class="card bg-paper p-5 transition-shadow hover:shadow-[0_18px_40px_-32px_rgba(0,0,0,0.35)]"
+          >
+            <GitHubIcon size={18} />
+            <p class="mt-4 text-sm font-medium">GitHub Releases</p>
+            <p class="mt-1 text-xs text-muted">Available now · v{version}</p>
+          </a>
+
+          <div class="card bg-paper p-5">
+            <Play size={18} class="text-ink/45" aria-hidden="true" />
+            <p class="mt-4 text-sm font-medium text-ink/60">Google Play</p>
+            <p class="mt-1 text-xs text-muted">Coming soon</p>
+          </div>
+
+          <div class="card bg-paper p-5">
+            <Package size={18} class="text-ink/45" aria-hidden="true" />
+            <p class="mt-4 text-sm font-medium text-ink/60">F-Droid</p>
+            <p class="mt-1 text-xs text-muted">Coming soon</p>
+          </div>
+        </div>
+
+        <p class="mt-6 text-xs text-faint">APK · Android 9+ · Requires a Jellyfin server</p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="scroll-mt-24 py-16 sm:py-20">
+      <div class="wrap">
+        <SectionHeading eyebrow="Questions" title="The short answers." />
+
+        <div class="mt-8 space-y-2">
+          {faqs.map((item) => (
+            <details class="group rounded-2xl bg-wash/60 px-5 py-4">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-[15px] font-medium marker:hidden">
+                {item.q}
+                <span
+                  class="flex size-6 shrink-0 items-center justify-center rounded-full bg-paper text-faint transition-transform duration-200 group-open:rotate-45"
+                  aria-hidden="true"
+                >
+                  <span class="text-base leading-none">+</span>
+                </span>
+              </summary>
+              <p class="mt-3 max-w-[38rem] text-sm leading-relaxed text-muted">{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
+</Base>

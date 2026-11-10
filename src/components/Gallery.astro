@@ -1,0 +1,137 @@
+---
+import Phone from "./Phone.astro";
+import SectionHeading from "./SectionHeading.astro";
+
+import home from "../assets/screens/home.jpg";
+import books from "../assets/screens/books.jpg";
+import reader from "../assets/screens/reader.jpg";
+import readerGesture from "../assets/screens/reader-gesture.jpg";
+import artists from "../assets/screens/artists.jpg";
+import musicPlayer from "../assets/screens/music-player.jpg";
+import profiles from "../assets/screens/profiles.jpg";
+import search from "../assets/screens/search.jpg";
+import onboarding from "../assets/screens/onboarding.jpg";
+import movie from "../assets/screens/movie.jpg";
+
+const screens = [
+  { src: home, label: "Home", alt: "The Onigiri home screen" },
+  { src: movie, label: "Movie detail", alt: "A movie detail page in Onigiri" },
+  { src: reader, label: "Reader", alt: "Reading an EPUB in Onigiri" },
+  { src: readerGesture, label: "Pull to chapter", alt: "Chapter navigation gesture" },
+  { src: musicPlayer, label: "Now playing", alt: "The music player with vinyl artwork" },
+  { src: artists, label: "Artists", alt: "Artists page with the mini-player" },
+  { src: profiles, label: "Profiles", alt: "Profile selection" },
+  { src: onboarding, label: "Onboarding", alt: "First-run onboarding" },
+  { src: books, label: "Books", alt: "The Books tab" },
+  { src: search, label: "Search", alt: "Global search" },
+];
+---
+
+<section id="gallery" class="scroll-mt-24 py-20 sm:py-28">
+  <div class="wrap">
+    <div class="flex items-end justify-between gap-6">
+      <SectionHeading
+        eyebrow="A closer look"
+        title="The whole app, at a glance."
+        body="Ten screens, no mockups. Drag through the strip, or scroll it sideways."
+      />
+      <p class="hidden shrink-0 pb-1 text-[10px] uppercase tracking-[0.2em] text-faint sm:block">
+        Drag to explore
+      </p>
+    </div>
+  </div>
+
+  <div class="relative mt-10">
+    <div
+      class="pointer-events-none absolute inset-y-0 left-0 z-10 w-10 bg-gradient-to-r from-paper to-transparent sm:w-16"
+      aria-hidden="true"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-gradient-to-l from-paper to-transparent sm:w-16"
+      aria-hidden="true"
+    >
+    </div>
+
+    <div
+      id="gallery-embla"
+      class="gallery-viewport cursor-grab select-none overflow-hidden active:cursor-grabbing"
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Screenshots of Onigiri"
+      tabindex="0"
+    >
+      <div id="gallery-track" class="gallery-track flex items-start gap-5 sm:gap-8">
+        {screens.map((screen, index) => {
+          const landscape = screen.src.width > screen.src.height;
+          return (
+            <figure
+              class:list={[
+                landscape ? "w-[340px] sm:w-[440px]" : "w-[220px] sm:w-[264px]",
+                "shrink-0",
+                index % 2 === 1 && "sm:mt-10",
+              ]}
+            >
+              <Phone
+                src={screen.src}
+                alt={screen.alt}
+                sizes={
+                  landscape
+                    ? "(max-width: 640px) 340px, 440px"
+                    : "(max-width: 640px) 220px, 264px"
+                }
+              />
+              <figcaption class="mt-4 flex items-baseline gap-2.5 text-[11px] text-faint">
+                <span class="tabular-nums">{String(index + 1).padStart(2, "0")}</span>
+                <span class="h-px w-4 bg-line" aria-hidden="true"></span>
+                <span>{screen.label}</span>
+              </figcaption>
+            </figure>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap mt-8">
+    <div class="h-px w-full bg-line">
+      <div id="gallery-progress" class="h-px w-0 bg-ink"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import EmblaCarousel from "embla-carousel";
+
+  const viewport = document.getElementById("gallery-embla");
+  const progress = document.getElementById("gallery-progress");
+
+  if (viewport && progress) {
+    const embla = EmblaCarousel(viewport, {
+      align: "start",
+      containScroll: "trimSnaps",
+      duration: 30,
+      skipSnaps: false,
+    });
+
+    const update = () => {
+      progress.style.width = `${(embla.scrollProgress() * 100).toFixed(2)}%`;
+    };
+
+    embla.on("scroll", update);
+    embla.on("select", update);
+    embla.on("reInit", update);
+    update();
+
+    viewport.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        embla.scrollNext();
+      }
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        embla.scrollPrev();
+      }
+    });
+  }
+</script>

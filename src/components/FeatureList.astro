@@ -1,0 +1,27 @@
+---
+import { Check } from "@lucide/astro";
+
+interface Props {
+  items: string[];
+  class?: string;
+  cols?: 1 | 2;
+}
+
+const { items, class: className, cols = 2 } = Astro.props;
+const colsClass = cols === 1 ? "sm:grid-cols-1" : "sm:grid-cols-2";
+---
+
+<ul
+  class:list={[
+    "mt-6 grid gap-x-6 gap-y-2.5 text-[14.5px] leading-snug text-muted",
+    colsClass,
+    className,
+  ]}
+>
+  {items.map((item) => (
+    <li class="flex gap-2.5">
+      <Check size={15} stroke-width={2.2} class="mt-[3px] shrink-0 text-ink" aria-hidden="true" />
+      <span>{item}</span>
+    </li>
+  ))}
+</ul>
