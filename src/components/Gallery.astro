@@ -1,4 +1,5 @@
 ---
+import { ArrowLeft, ArrowRight } from "@lucide/astro";
 import Phone from "./Phone.astro";
 import SectionHeading from "./SectionHeading.astro";
 
@@ -36,7 +37,7 @@ const screens = [
         body="Captures from the app. Drag the strip or use the arrow keys."
       />
       <p class="hidden shrink-0 pb-1 text-[10px] uppercase tracking-[0.2em] text-faint sm:block">
-        Drag to explore
+        Drag or use the arrows
       </p>
     </div>
   </div>
@@ -94,9 +95,30 @@ const screens = [
     </div>
   </div>
 
-  <div class="wrap mt-8">
-    <div class="h-px w-full bg-line">
-      <div id="gallery-progress" class="h-px w-0 bg-ink"></div>
+  <div class="wrap-wide mt-6 flex items-center justify-between">
+    <p class="text-[10px] uppercase tracking-[0.2em] text-faint">
+      <span id="gallery-current" class="tabular-nums text-ink">01</span>
+      <span class="mx-1">/</span>
+      <span class="tabular-nums">{String(screens.length).padStart(2, "0")}</span>
+    </p>
+
+    <div class="flex items-center gap-2">
+      <button
+        id="gallery-prev"
+        type="button"
+        class="flex size-10 items-center justify-center rounded-full bg-wash text-ink transition-colors hover:bg-line/70 disabled:pointer-events-none disabled:opacity-30"
+        aria-label="Previous screenshots"
+      >
+        <ArrowLeft size={16} aria-hidden="true" />
+      </button>
+      <button
+        id="gallery-next"
+        type="button"
+        class="flex size-10 items-center justify-center rounded-full bg-wash text-ink transition-colors hover:bg-line/70 disabled:pointer-events-none disabled:opacity-30"
+        aria-label="Next screenshots"
+      >
+        <ArrowRight size={16} aria-hidden="true" />
+      </button>
     </div>
   </div>
 </section>
@@ -105,9 +127,11 @@ const screens = [
   import EmblaCarousel from "embla-carousel";
 
   const viewport = document.getElementById("gallery-embla");
-  const progress = document.getElementById("gallery-progress");
+  const prev = document.getElementById("gallery-prev");
+  const next = document.getElementById("gallery-next");
+  const current = document.getElementById("gallery-current");
 
-  if (viewport && progress) {
+  if (viewport && prev && next && current) {
     const embla = EmblaCarousel(viewport, {
       align: "start",
       containScroll: "trimSnaps",
@@ -116,13 +140,17 @@ const screens = [
     });
 
     const update = () => {
-      progress.style.width = `${(embla.scrollProgress() * 100).toFixed(2)}%`;
+      current.textContent = String(embla.selectedScrollSnap() + 1).padStart(2, "0");
+      prev.toggleAttribute("disabled", !embla.canScrollPrev());
+      next.toggleAttribute("disabled", !embla.canScrollNext());
     };
 
-    embla.on("scroll", update);
     embla.on("select", update);
     embla.on("reInit", update);
     update();
+
+    prev.addEventListener("click", () => embla.scrollPrev());
+    next.addEventListener("click", () => embla.scrollNext());
 
     viewport.addEventListener("keydown", (event) => {
       if (event.key === "ArrowRight") {

@@ -49,9 +49,6 @@ The site is fully static. Set `site` in `astro.config.mjs` to the production URL
 so canonical and Open Graph tags use absolute URLs, then deploy `dist/` to any
 static host (Cloudflare Pages, Vercel, Netlify, or a plain web server).
 
-The dev server allows `*.trycloudflare.com` hosts in `astro.config.mjs` so quick
-tunnels work during review. Remove that entry if you do not need it.
-
 ## Notes
 
 - Copy avoids em dashes.
