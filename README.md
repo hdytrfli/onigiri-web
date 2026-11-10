@@ -37,8 +37,12 @@ raw/                 screenshot dump, not committed
 
 ## Editing content
 
-- The latest release version and GitHub URLs are constants at the top of
-  `src/pages/index.astro` (`version`, `repoUrl`, `releaseUrl`).
+- The release version is fetched from GitHub Releases during production builds
+  and refreshed in the browser afterward, so publishing a release does not
+  require an edit. The `version` constant in `src/pages/index.astro` is the
+  offline fallback.
+- GitHub URLs live at the top of `src/pages/index.astro` (`repoUrl`,
+  `releaseUrl`).
 - App areas are sections in `src/pages/index.astro`: Onboarding, Movies, Shows,
   Books and audiobooks, Songs, Settings.
 - Screenshot order in the filmstrip lives in `src/components/Gallery.astro`.
