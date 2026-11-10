@@ -92,8 +92,6 @@
   }
 }
 
-/* Phone mockup: radius follows the rendered size (and the short edge for
-   landscape screens) instead of a fixed pixel value. */
 .phone-shell {
   container-type: inline-size;
 }
@@ -118,8 +116,6 @@
   touch-action: pan-y pinch-zoom;
 }
 
-/* Full-bleed spacing for the Embla track. Pseudo-elements are not counted
-   as slides by Embla, so they only pad the start and end. */
 .gallery-track::before,
 .gallery-track::after {
   content: "";
@@ -186,7 +182,6 @@
   transform: rotate(45deg);
 }
 
-/* Soft entrance for above-the-fold content. */
 @keyframes rise {
   from {
     opacity: 0;

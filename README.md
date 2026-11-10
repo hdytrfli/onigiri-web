@@ -24,8 +24,10 @@ src/
   components/        Nav, Footer, Phone, Gallery, Faq, Speech, SectionHeading
   layouts/Base.astro metadata, fonts, favicon
   pages/index.astro  the landing page and copy
+  pages/api/version.ts  cached GitHub release lookup
   pages/og.png.ts    build-time Open Graph image endpoint
   lib/og.ts          satori and sharp card renderer
+  lib/release.ts     release parsing and fetch helper
   styles/global.css  design tokens and component classes
 public/
   icon.png           app icon / favicon
@@ -51,9 +53,11 @@ raw/                 screenshot dump, not committed
 
 ## Deployment
 
-The site is fully static. Set `site` in `astro.config.mjs` to the production URL
-so canonical and Open Graph tags use absolute URLs, then deploy `dist/` to any
-static host (Cloudflare Pages, Vercel, Netlify, or a plain web server).
+The site is deployed on Vercel at `https://onigiri-project.vercel.app` using the
+`@astrojs/vercel` adapter. Everything is prerendered except `/api/version`, a
+small on-demand route that caches the GitHub release lookup at the edge.
+
+The route falls back to the build-time value when GitHub is unreachable.
 
 ## Notes
 

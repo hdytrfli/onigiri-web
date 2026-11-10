@@ -19,7 +19,6 @@ const {
   shadow = true,
 } = Astro.props;
 
-// Landscape screens get a radius based on their short edge, not their width.
 const shortEdge = Math.min(1, src.height / src.width).toFixed(3);
 ---
 
